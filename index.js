@@ -1,4 +1,4 @@
-require('common');
+require('core');
 const FormData = require('form-data');
 
 class Slack {
