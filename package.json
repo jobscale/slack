@@ -2,6 +2,7 @@
   "name": "@jobscale/slack",
   "version": "0.0.2",
   "description": "@jobscale/slack",
+  "keywords": ["slack"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jobscale/slack.git"

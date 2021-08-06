@@ -1,4 +1,5 @@
 const { Slack } = require('..');
+/* eslint-disable import/no-unresolved */
 const env = require('./env.json');
 
 describe('test slack send', () => {
