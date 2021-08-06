@@ -1,84 +1,69 @@
-require('core');
-const FormData = require('form-data');
+require('@jobscale/core');
+const { App, LogLevel } = require('@slack/bolt');
+
+const template = {
+  icon_emoji: ':badger:',
+  username: 'Unhealthy',
+  text: '',
+  attachments: [{
+    fallback: '',
+  }],
+};
 
 class Slack {
   constructor(env) {
-    this.env = Object.assign({}, env);
+    this.env = { ...env };
   }
+
   send(param) {
     const url = `https://hooks.slack.com/services/${this.env.access}`;
-    const body = JSON.stringify(param, null, 2);
     const options = {
       method: 'POST',
       'Content-Type': 'application/json',
-      body,
+      body: JSON.stringify({ ...template, ...param }),
     };
     return fetch(url, options)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      return response.text();
-    })
-    .catch(e => e.message);
-  }
-  getHistory(count) {
-    const url = 'https://slack.com/api/channels.history';
-    const param = Object.assign({}, this.env);
-    delete param.access;
-    const form = new FormData();
-    form.append('token', param.token);
-    form.append('channel', param.channel);
-    form.append('count', count);
-    const options = {
-      method: 'POST',
-      body: form,
-    };
-    return fetch(url, options)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      return response.json();
+    .then(res => {
+      if (!res.ok) throw new Error(res.statusText);
+      return res.text()
+      .then(body => ({
+        status: res.status, statusText: res.statusText, body,
+      }));
     });
   }
-  spacer(delay) {
-    const promise = promiseGen();
-    setTimeout(promise.resolve, delay, { delay });
-    return promise.instance;
+
+  removeMessages(client, messages) {
+    return Promise.all(messages.map(message => client.chat.delete({
+      channel: this.env.channelId,
+      ts: message.ts,
+    })));
   }
-  deleteMessage(message) {
-    const url = 'https://slack.com/api/chat.delete';
-    const param = Object.assign({}, this.env);
-    delete param.access;
-    const form = new FormData();
-    form.append('token', param.token);
-    form.append('channel', param.channel);
-    form.append('ts', message.ts);
-    const options = {
-      method: 'POST',
-      body: form,
-    };
-    return fetch(url, options)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      return response.json();
-    })
-    .catch(e => e.message)
-    .then(info => logger.info(info));
-  }
-  async deleteChat(messages) {
-    const param = { count: 0 };
-    for (let i = messages.length - 1; i > 100; i--) {
-      await this.deleteMessage(messages[i])
-      .then(() => this.spacer(800));
-      param.count++;
+
+  async clearChannel(count) {
+    const app = new App({
+      token: this.env.token,
+      logLevel: LogLevel.DEBUG,
+      signingSecret: this.env.secret,
+    });
+    const summery = { total: 0, length: 'first' };
+    for (; summery.length;) {
+      await app.client.conversations.history({
+        channel: this.env.channelId,
+        limit: 50,
+      })
+      .then(json => {
+        if (count) json.messages.length = count;
+        summery.length = json.messages.length;
+        summery.total += summery.length;
+        logger.info(summery);
+        if (count) summery.length = 0;
+        return this.removeMessages(app.client, json.messages);
+      });
     }
-    return { ok: param.count };
+    return { deleted: summery.total };
   }
 }
+
 module.exports = {
   Slack,
 };
