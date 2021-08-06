@@ -26,7 +26,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: |
+    - name: Lint and Test (CI)
+      run: |
         rm -fr node_modules package-lock.json
         npm i
         npm run lint
