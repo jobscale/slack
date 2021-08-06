@@ -1,7 +1,11 @@
 {
   "name": "@jobscale/slack",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "@jobscale/slack",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jobscale/slack.git"
+  },
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
