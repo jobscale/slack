@@ -1,8 +1,10 @@
 {
   "name": "@jobscale/slack",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "@jobscale/slack",
-  "keywords": ["slack"],
+  "keywords": [
+    "slack"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jobscale/slack.git"
@@ -10,20 +12,19 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test:all": "jest --coverage --collectCoverage",
-    "test": "npm run lint && jest --coverage"
+    "test": "npm run lint && jest --coverage --collectCoverage"
   },
   "author": "jobscale <jobscale@users.noreply.github.com>",
   "dependencies": {
-    "@jobscale/core": "0.0.3",
-    "@slack/bolt": "^3.5.0"
+    "@jobscale/core": "0.0.9",
+    "@slack/bolt": "^3.8.1"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jest": "^24.4.0",
-    "jest": "^27.0.6"
+    "eslint": "^8.5.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.3.0",
+    "jest": "^27.4.5"
   },
   "license": "MIT"
 }
