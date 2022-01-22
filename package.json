@@ -1,6 +1,6 @@
 {
   "name": "@jobscale/slack",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "@jobscale/slack",
   "keywords": [
     "slack"
@@ -12,19 +12,23 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "npm run lint && jest --coverage --collectCoverage"
+    "test": "npm run lint && jest --runInBand --coverage --collectCoverage"
   },
   "author": "jobscale <jobscale@users.noreply.github.com>",
+  "pre-commit": [
+    "test"
+  ],
   "dependencies": {
-    "@jobscale/core": "0.0.9",
-    "@slack/bolt": "^3.8.1"
+    "@jobscale/core": "^0.0.13",
+    "@slack/bolt": "^3.9.0"
   },
   "devDependencies": {
-    "eslint": "^8.5.0",
+    "eslint": "^8.7.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-jest": "^25.3.0",
-    "jest": "^27.4.5"
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^25.7.0",
+    "jest": "^27.4.7",
+    "pre-commit": "^1.2.2"
   },
   "license": "MIT"
 }
