@@ -1,8 +1,6 @@
 module.exports = {
   extends: 'airbnb-base',
   globals: {
-    logger: 'readonly',
-    spawn: 'readonly',
     fetch: 'readonly',
   },
   rules: {
@@ -13,6 +11,7 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-await-in-loop': 'off',
     'no-plusplus': 'off',
+    'no-loop-func': 'off',
   },
   env: {
     'jest/globals': true,

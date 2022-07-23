@@ -6,3 +6,5 @@ node_modules/
 .config.js
 coverage/
 env.json
+.vscode/
+package-lock.json

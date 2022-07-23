@@ -1,4 +1,4 @@
-require('@jobscale/core');
+const { logger } = require('@jobscale/core');
 const { App, LogLevel } = require('@slack/bolt');
 
 const template = {
@@ -16,19 +16,19 @@ class Slack {
   }
 
   send(param) {
-    const url = `https://hooks.slack.com/services/${this.env.access}`;
     const options = {
+      url: `https://hooks.slack.com/services/${this.env.access}`,
       method: 'POST',
       'Content-Type': 'application/json',
-      body: JSON.stringify({ ...template, ...param }),
+      data: JSON.stringify({ ...template, ...param }),
     };
-    return fetch(url, options)
+    return fetch(options)
     .then(res => {
-      if (!res.ok) throw new Error(res.statusText);
-      return res.text()
-      .then(body => ({
-        status: res.status, statusText: res.statusText, body,
-      }));
+      return {
+        status: res.status,
+        statusText: res.statusText,
+        body: res.data,
+      };
     });
   }
 
@@ -52,12 +52,13 @@ class Slack {
         limit: 50,
       })
       .then(json => {
-        if (count) json.messages.length = count;
-        summery.length = json.messages.length;
+        const { messages } = json;
+        if (count && messages.length > count) messages.length = count;
+        summery.length = messages.length;
         summery.total += summery.length;
         logger.info(summery);
         if (count) summery.length = 0;
-        return this.removeMessages(app.client, json.messages);
+        return this.removeMessages(app.client, messages);
       });
     }
     return { deleted: summery.total };
