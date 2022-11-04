@@ -30,4 +30,5 @@ jobs:
       run: |
         rm -fr node_modules package-lock.json
         npm i
+        touch test/env.json
         npm run lint
