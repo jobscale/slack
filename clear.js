@@ -1,4 +1,4 @@
-const { logger } = require('@jobscale/core');
+const { logger } = require('@jobscale/logger');
 const { Slack } = require('.');
 const env = require('./test/env.json');
 

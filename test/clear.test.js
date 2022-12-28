@@ -1,4 +1,4 @@
-const { logger } = require('@jobscale/core');
+const { logger } = require('@jobscale/logger');
 const { Slack } = require('..');
 /* eslint-disable import/no-unresolved */
 const env = require('./env.json');

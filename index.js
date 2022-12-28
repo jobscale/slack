@@ -1,4 +1,5 @@
-const { logger } = require('@jobscale/core');
+const { logger } = require('@jobscale/logger');
+const { fetch } = require('@jobscale/fetch');
 const { App, LogLevel } = require('@slack/bolt');
 
 const template = {
@@ -16,11 +17,15 @@ class Slack {
   }
 
   send(param) {
+    const url = `https://hooks.slack.com/services/${this.env.access}`;
+    const data = { ...template, ...param };
     const options = {
-      url: `https://hooks.slack.com/services/${this.env.access}`,
-      method: 'POST',
-      'Content-Type': 'application/json',
-      data: JSON.stringify({ ...template, ...param }),
+      url,
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data,
     };
     return fetch(options)
     .then(res => {
