@@ -1,7 +1,6 @@
 module.exports = {
   extends: 'airbnb-base',
   globals: {
-    fetch: 'readonly',
   },
   rules: {
     indent: ['error', 2, { MemberExpression: 0 }],
@@ -15,7 +14,11 @@ module.exports = {
     'no-loop-func': 'off',
   },
   env: {
+    node: true,
     'jest/globals': true,
+  },
+  parserOptions: {
+    ecmaVersion: 2023,
   },
   plugins: [
     'jest',
