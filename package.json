@@ -1,6 +1,6 @@
 {
   "name": "@jobscale/slack",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "@jobscale/slack",
   "keywords": [
     "slack"
@@ -9,18 +9,18 @@
     "type": "git",
     "url": "git+https://github.com/jobscale/slack.git"
   },
+  "author": "jobscale <jobscale@users.noreply.github.com>",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
     "test": "jest --runInBand --coverage --collectCoverage"
   },
-  "author": "jobscale <jobscale@users.noreply.github.com>",
   "pre-commit": [
-    "test"
+    "lint", "test"
   ],
   "dependencies": {
-    "@jobscale/logger": "^0.3.0",
+    "@jobscale/logger": "^0.4.0",
     "@slack/bolt": "^3.17.1"
   },
   "devDependencies": {
