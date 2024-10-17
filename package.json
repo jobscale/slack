@@ -1,6 +1,6 @@
 {
   "name": "@jobscale/slack",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "@jobscale/slack",
   "keywords": [
     "slack"
@@ -17,17 +17,18 @@
     "test": "jest --runInBand --coverage --collectCoverage"
   },
   "pre-commit": [
-    "lint", "test"
+    "lint",
+    "test"
   ],
   "dependencies": {
-    "@jobscale/logger": "^0.4.0",
-    "@slack/bolt": "^3.17.1"
+    "@jobscale/logger": "^0.6.0",
+    "@slack/bolt": "^3.22.0"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
+    "eslint": "^8.57.1",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jest": "^27.9.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jest": "^28.8.3",
     "jest": "^29.7.0",
     "pre-commit": "^1.2.2"
   }
