@@ -1,6 +1,8 @@
+import fs from 'fs';
 import { logger } from '@jobscale/logger';
 import { Slack } from './index.jp';
-import env from './test/env.json';
+
+const env = JSON.parse(fs.readFileSync('test/env.json').toString());
 
 const slack = new Slack(env);
 const clear = async () => {
