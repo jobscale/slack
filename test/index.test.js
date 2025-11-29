@@ -1,7 +1,8 @@
-const { logger } = require('@jobscale/logger');
-const { Slack } = require('..');
-/* eslint-disable import/no-unresolved */
-const env = require('./env.json');
+import fs from 'fs';
+import { logger } from '@jobscale/logger';
+import { Slack } from '../index.js';
+
+const env = JSON.parse(fs.readFileSync('test/env.json').toString());
 
 describe('test slack send', () => {
   it('toStrictEqual prompt', () => {

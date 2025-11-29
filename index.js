@@ -1,5 +1,5 @@
-const { logger } = require('@jobscale/logger');
-const { App, LogLevel } = require('@slack/bolt');
+import { logger } from '@jobscale/logger';
+import { App, LogLevel } from '@slack/bolt';
 
 const template = {
   icon_emoji: ':badger:',
@@ -10,8 +10,12 @@ const template = {
   }],
 };
 
-class Slack {
+export class Slack {
   constructor(env) {
+    if (env) this.config(env);
+  }
+
+  config(env) {
     this.env = { ...env };
   }
 
@@ -23,14 +27,9 @@ class Slack {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     };
-    return fetch(url, options)
-    .then(async res => {
-      return {
-        status: res.status,
-        statusText: res.statusText,
-        body: await res.text(),
-      };
-    });
+    return fetch(url, options).then(async res => ({
+      status: res.status, statusText: res.statusText, body: await res.text(),
+    }));
   }
 
   removeMessages(client, messages) {
@@ -66,6 +65,5 @@ class Slack {
   }
 }
 
-module.exports = {
-  Slack,
-};
+export const slack = new Slack();
+export default { Slack, slack };

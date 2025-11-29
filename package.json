@@ -1,6 +1,6 @@
 {
   "name": "@jobscale/slack",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "@jobscale/slack",
   "keywords": [
     "slack"
@@ -15,17 +15,15 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint",
-    "test": "jest --runInBand --coverage --collectCoverage"
+    "test": "date -Iseconds && node --experimental-vm-modules node_modules/.bin/jest --detectOpenHandles --runInBand --coverage --collectCoverage"
   },
-  "pre-commit": [
-    "lint",
-    "test"
-  ],
+  "pre-commit": "test",
   "dependencies": {
     "@jobscale/logger": "^0.10.1",
     "@slack/bolt": "^4.6.0"
   },
   "devDependencies": {
+    "@jobscale/eslint-plugin-standard": "^0.0.7",
     "eslint": "^9.39.1",
     "eslint-plugin-jest": "^29.2.1",
     "jest": "^30.2.0",

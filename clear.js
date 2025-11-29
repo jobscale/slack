@@ -1,6 +1,6 @@
-const { logger } = require('@jobscale/logger');
-const { Slack } = require('.');
-const env = require('./test/env.json');
+import { logger } from '@jobscale/logger';
+import { Slack } from './index.jp';
+import env from './test/env.json';
 
 const slack = new Slack(env);
 const clear = async () => {
@@ -13,11 +13,7 @@ const clear = async () => {
   });
 };
 
-const main = () => {
-  return clear()
-  .then(res => {
-    logger.info(res);
-  });
-};
+const main = () => clear()
+.then(res => logger.info(res));
 
 main();

@@ -11,24 +11,42 @@ npm i @jobscale/slack
 ### send slack channel
 
 ```
-const { Slack } = require('@jobscale/slack');
-const env = require('./env.json');
+import fs from 'fs';
+import { logger } from '@jobscale/logger';
+import { Slack } from '@jobscale/slack';
 
-const params = { text: 'jest test send' };
-return new Slack(env).send(params)
-.then(res => {
-  logger.info(res);
+const env = JSON.parse(fs.readFileSync('test/env.json').toString());
+
+describe('test slack send', () => {
+  it('toStrictEqual prompt', () => {
+    const params = { text: 'jest test send' };
+    return new Slack(env).send(params)
+    .then(res => {
+      const prompt = { status: 200, statusText: 'OK', body: 'ok' };
+      logger.info(res);
+      expect(res).toStrictEqual(prompt);
+    });
+  });
 });
 ```
 
 ### clear slack channel
 
 ```
-const { Slack } = require('@jobscale/slack');
-const env = require('./env.json');
+import fs from 'fs';
+import { logger } from '@jobscale/logger';
+import { Slack } from '@jobscale/slack';
 
-return new Slack(env).clearChannel()
-.then(res => {
-  logger.info(res);
+const env = JSON.parse(fs.readFileSync('test/env.json').toString());
+
+describe('test slack clear channel', () => {
+  it('toBe prompt', () => {
+    const prompt = 1;
+    return new Slack(env).clearChannel(prompt)
+    .then(res => {
+      logger.info(res);
+      expect(res.deleted).toBe(prompt);
+    });
+  });
 });
 ```
