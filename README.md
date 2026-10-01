@@ -12,7 +12,7 @@ npm i @jobscale/slack
 
 ```
 import fs from 'fs';
-import { logger } from '@jobscale/logger';
+import { logger } from '@jobscale/create-logger';
 import { Slack } from '@jobscale/slack';
 
 const env = JSON.parse(fs.readFileSync('test/env.json').toString());
@@ -34,7 +34,7 @@ describe('test slack send', () => {
 
 ```
 import fs from 'fs';
-import { logger } from '@jobscale/logger';
+import { logger } from '@jobscale/create-logger';
 import { Slack } from '@jobscale/slack';
 
 const env = JSON.parse(fs.readFileSync('test/env.json').toString());

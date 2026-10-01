@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { logger } from '@jobscale/logger';
+import { logger } from '@jobscale/create-logger';
 import { Slack } from '../index.js';
 
 const env = JSON.parse(fs.readFileSync('test/env.json').toString());
